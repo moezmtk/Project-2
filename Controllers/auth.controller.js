@@ -7,13 +7,16 @@ const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+var CryptoJS = require("crypto-js");
+
 
 exports.signup = (req, res) => {
   // Save User to Database
   User.create({
     username: req.body.username,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
+    //password: bcrypt.hashSync(req.body.password, 8)
+    password: CryptoJS.AES.encrypt(req.body.password, 'secret-key-123').toString()
   })
     .then(user => {
       if (req.body.roles) {
