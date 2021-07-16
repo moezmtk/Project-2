@@ -1,4 +1,3 @@
-const express = require('express')
 const { DataTypes } = require('sequelize')
 const db =  require('../Config/db.config.db')
 

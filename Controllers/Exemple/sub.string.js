@@ -1,9 +1,5 @@
 const express = require('express')
 
-/*const str = 'Arya Stark';
-
-str.includes('Stark'); // true
-str.includes('Snow'); // false*/
 
 exports.subString = (req,res)=>{
      //exemple str4="test",str5="tes"

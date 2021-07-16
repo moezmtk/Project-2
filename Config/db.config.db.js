@@ -4,24 +4,11 @@ const { Sequelize } = require('sequelize')
 
 
 
-/*const connected = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
-    database: 'base'
-})*/
-
 const sequelize  = new Sequelize('base', 'root', '', {
     host: 'localhost',
     dialect: 'mysql'
   })
 
   
-
-
-
-
-
-
 
 module.exports = sequelize

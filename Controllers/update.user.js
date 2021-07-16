@@ -1,9 +1,4 @@
-const { DataTypes } = require('sequelize')
-const express = require('express')
 const User = require('../models/user.model')
-
-
-
 
 exports.update = (req, res) => {
     const id = req.params.id

@@ -28,7 +28,7 @@ const userValidations = require ('../validation/validation.user')
 
 
 
-//User fonction
+
 
 router.post('/createUser',validate(userValidations.userValidation, {}, {}), createUsers.createUser)
 
@@ -49,16 +49,9 @@ const { authJwt } = require("../Middleware");
 
 router.get('/firstUpper/:str1',[authJwt.verifyToken, authJwt.isModerator],firstUppers.firstUpper)
 router.post('/groupByProperty/:prop',[authJwt.verifyToken, authJwt.isModerator],groupByPropertys.groupByProperty)
-router.get('/subString/:str4/:str5',
-[authJwt.verifyToken, authJwt.isAdmin],subStrings.subString)
+router.get('/subString/:str4/:str5',[authJwt.verifyToken, authJwt.isAdmin],subStrings.subString)
 router.post('/deepClone',[authJwt.verifyToken, authJwt.isModerator],deepClones.deepClone)
-router.post('/deleteElement/:index',
-[authJwt.verifyToken, authJwt.isAdmin],deleteElements.deleteElement)
-
-
-
-
-
+router.post('/deleteElement/:index',[authJwt.verifyToken, authJwt.isAdmin],deleteElements.deleteElement)
 
 
 

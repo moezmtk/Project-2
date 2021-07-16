@@ -3,7 +3,6 @@ const express = require('express')
 
 exports.groupByProperty = (req,res)=>{
     
-    //const array = [{name:'test'},{name:'test'},{name:'test1'},{name:'test12'},{name:'test12'}]
     //exemple : [{"name":"test"},{"name":"test"},{"name":"test1"},{"name":"test12"},{"name":"test12"}]
     const array = req.body
         
