@@ -47,11 +47,11 @@ router.delete('/deleteUser/:id',deleteUsers.delete)
 const { authJwt } = require("../Middleware");
 
 
-router.get('/firstUpper/:str1',[authJwt.verifyToken, authJwt.isModerator],firstUppers.firstUpper)
-router.post('/groupByProperty/:prop',[authJwt.verifyToken, authJwt.isModerator],groupByPropertys.groupByProperty)
-router.get('/subString/:str4/:str5',[authJwt.verifyToken, authJwt.isAdmin],subStrings.subString)
-router.post('/deepClone',[authJwt.verifyToken, authJwt.isModerator],deepClones.deepClone)
-router.post('/deleteElement/:index',[authJwt.verifyToken, authJwt.isAdmin],deleteElements.deleteElement)
+router.get('/firstUpper/:str1',[authJwt.verifyToken, authJwt.isModerator,authJwt.isItBlacklisted],firstUppers.firstUpper)
+router.post('/groupByProperty/:prop',[authJwt.verifyToken, authJwt.isModerator,authJwt.isItBlacklisted],groupByPropertys.groupByProperty)
+router.get('/subString/:str4/:str5',[authJwt.verifyToken, authJwt.isAdmin,authJwt.isItBlacklisted],subStrings.subString)
+router.post('/deepClone',[authJwt.verifyToken, authJwt.isModerator,authJwt.isItBlacklisted],deepClones.deepClone)
+router.post('/deleteElement/:index',[authJwt.verifyToken, authJwt.isAdmin,authJwt.isItBlacklisted],deleteElements.deleteElement)
 
 
 

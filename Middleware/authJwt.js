@@ -19,6 +19,8 @@ verifyToken = (req, res, next) => {
       });
     }
     req.userId = decoded.id;
+    req.tokenExp = decoded.exp;
+    req.token = token;
     next();
   });
 };
@@ -80,10 +82,38 @@ isModeratorOrAdmin = (req, res, next) => {
   });
 };
 
+////////////////////////////////////////////////////////////////
+
+const redisClient = require('./init_redis')
+
+isItBlacklisted = (request, response, next) => {
+    const { userId, token } = request;
+
+    redisClient.get(userId, (error, data) => {
+      if (error) {
+        return response.status(400).send({ error });
+      }
+ 
+      if (data !== null) {
+        const parsedData = JSON.parse(data);
+        if (parsedData[userId].includes(token)) {
+          return response.send({
+            message: 'You have to login!',
+          });
+        }
+        return next();
+      }
+    });
+  };
+
+
+
+
 const authJwt = {
   verifyToken: verifyToken,
   isAdmin: isAdmin,
   isModerator: isModerator,
-  isModeratorOrAdmin: isModeratorOrAdmin
+  isModeratorOrAdmin: isModeratorOrAdmin,
+  isItBlacklisted : isItBlacklisted
 };
 module.exports = authJwt;

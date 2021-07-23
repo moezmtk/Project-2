@@ -88,25 +88,43 @@ exports.signin = (req, res) => {
     });
 };
 
-
-
- exports.signout=  (req, res)=> {
-  
-
-
-  const authHeader = req.headers["x-access-token"];
-  jwt.sign(authHeader, { expiresIn: 1 } , (logout, err) => {
-  if (logout) {
-  res.send({msg : 'You have been Logged Out' });
-  } else {
-  res.send({msg:'Error'});
-  }
-  });
-
-
+const redisClient = require('../Middleware/init_redis')
  
 
+
+
+
+exports.logout=  (req, res)=> {
+      const { userId, token } = req;
+    
+      redisClient.get(userId, (error, data) => {
+        if (error) {
+          res.send({ error });
+        }
+   
+        if (data !== null) {
+          const parsedData = JSON.parse(data);
+          parsedData[userId].push(token);
+          redisClient.setex(userId, 3600, JSON.stringify(parsedData));
+          return res.send({
+            status: 'success',
+            message: 'Logout successful',
+          });
+        }
+    
+        const blacklistData = {
+          [userId]: [token],
+        };
+        redisClient.setex(userId, 3600, JSON.stringify(blacklistData));
+        return res.send({
+            status: 'success',
+            message: 'Logout successful',
+        });
+      });
+
 }
+
+
 
     
 

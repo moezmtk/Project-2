@@ -20,5 +20,10 @@ module.exports = function(app) {
 
   app.post("/signin", controller.signin);
 
-  app.put("/signout",authJwt.verifyToken, controller.signout);
+  app.post("/logout",authJwt.verifyToken, controller.logout);
 };
+
+
+
+
+
