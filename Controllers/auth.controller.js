@@ -90,25 +90,7 @@ exports.signin = (req, res) => {
 
 
 
- exports.signout=  (req, res)=> {
-  
-
-
-  const authHeader = req.headers["x-access-token"];
-  jwt.sign(authHeader, { expiresIn: 1 } , (logout, err) => {
-  if (logout) {
-  res.send({msg : 'You have been Logged Out' });
-  } else {
-  res.send({msg:'Error'});
-  }
-  });
-
-
  
-
-}
-
-    
 
 
 
