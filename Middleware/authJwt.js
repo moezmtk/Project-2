@@ -87,7 +87,7 @@ isModeratorOrAdmin = (req, res, next) => {
 const redisClient = require('./init_redis')
 
 isItBlacklisted = (request, response, next) => {
-    //const { userId, token } = request;
+   
     let token = request.headers["x-access-token"];
     let id = request.headers["id"];
     redisClient.get(id, (error, data) => {
