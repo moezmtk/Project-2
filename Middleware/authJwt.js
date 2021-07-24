@@ -87,16 +87,17 @@ isModeratorOrAdmin = (req, res, next) => {
 const redisClient = require('./init_redis')
 
 isItBlacklisted = (request, response, next) => {
-    const { userId, token } = request;
-
-    redisClient.get(userId, (error, data) => {
+    //const { userId, token } = request;
+    let token = request.headers["x-access-token"];
+    let id = request.headers["id"];
+    redisClient.get(id, (error, data) => {
       if (error) {
         return response.status(400).send({ error });
       }
  
       if (data !== null) {
         const parsedData = JSON.parse(data);
-        if (parsedData[userId].includes(token)) {
+        if (parsedData[id].includes(token)) {
           return response.send({
             message: 'You have to login!',
           });

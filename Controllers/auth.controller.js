@@ -95,15 +95,16 @@ const redisClient = require('../Middleware/init_redis')
 
 
 exports.logout=  (req, res)=> {
-      const { id, token } = req;
-    
+     // const { id, token } = req;
+     let token = req.headers["x-access-token"];
+     let id = req.headers["id"];
       redisClient.get(id, (error, data) => {
         if (error) {
           res.send({ error });
         }
    
         if (data !== null) {
-          const parsedData = JSON.parse(data);
+          const parsedData = JSON.parse({data});
           parsedData[id].push(token);
           redisClient.setex(id, 3600, JSON.stringify(parsedData));
           return res.send({
