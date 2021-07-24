@@ -95,17 +95,17 @@ const redisClient = require('../Middleware/init_redis')
 
 
 exports.logout=  (req, res)=> {
-      const { userId, token } = req;
+      const { id, token } = req;
     
-      redisClient.get(userId, (error, data) => {
+      redisClient.get(id, (error, data) => {
         if (error) {
           res.send({ error });
         }
    
         if (data !== null) {
           const parsedData = JSON.parse(data);
-          parsedData[userId].push(token);
-          redisClient.setex(userId, 3600, JSON.stringify(parsedData));
+          parsedData[id].push(token);
+          redisClient.setex(id, 3600, JSON.stringify(parsedData));
           return res.send({
             status: 'success',
             message: 'Logout successful',
@@ -113,9 +113,9 @@ exports.logout=  (req, res)=> {
         }
     
         const blacklistData = {
-          [userId]: [token],
+          [id]: [token],
         };
-        redisClient.setex(userId, 3600, JSON.stringify(blacklistData));
+        redisClient.setex(id, 3600, JSON.stringify(blacklistData));
         return res.send({
             status: 'success',
             message: 'Logout successful',
