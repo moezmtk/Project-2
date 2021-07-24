@@ -102,8 +102,8 @@ exports.logout=  (req, res)=> {
         if (error) {
           res.send({ error });
         }
-   
-        if (data !== null) {
+   console.log('data : ',data)
+        if (data == null ) {
           const parsedData = JSON.parse({data});
           parsedData[id].push(token);
           redisClient.setex(id, 3600, JSON.stringify(parsedData));
@@ -117,6 +117,8 @@ exports.logout=  (req, res)=> {
           [id]: [token],
         };
         redisClient.setex(id, 3600, JSON.stringify(blacklistData));
+        console.log('blacklist : ',blacklistData)
+
         return res.send({
             status: 'success',
             message: 'Logout successful',
