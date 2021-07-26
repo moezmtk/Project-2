@@ -94,7 +94,7 @@ isItBlacklisted = (request, response, next) => {
       if (error) {
         return response.status(400).send({ error });
       }
- 
+      console.log({data})
       if (data !== null) {
         const parsedData = JSON.parse(data);
         if (parsedData[id].includes(token)) {

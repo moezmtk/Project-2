@@ -1,3 +1,4 @@
+const redisClient = require('../Middleware/init_redis')
 const db = require("../models");
 const config = require("../Config/auth.config");
 const User = db.user;
@@ -88,25 +89,25 @@ exports.signin = (req, res) => {
     });
 };
 
-const redisClient = require('../Middleware/init_redis')
+
  
 
 
 
 
 exports.logout=  (req, res)=> {
-    
      let token = req.headers["x-access-token"];
      let id = req.headers["id"];
-      redisClient.get(id, (error, data) => {
-        if (error) {
-          res.send({ error });
-        }
-   console.log('data : ',data)
-        if (data == null ) {
-          const parsedData = JSON.parse({data});
+     
+     redisClient.get(id, (error, data) => {
+      if (error) {
+        res.send({ error });
+      }
+        console.log({data})
+        if (data !== null ) {
+          const parsedData = JSON.parse(data);
           parsedData[id].push(token);
-          redisClient.setex(id, 3600, JSON.stringify(parsedData));
+          redisClient.setex(id, 86400, JSON.stringify(parsedData));
           return res.send({
             status: 'success',
             message: 'Logout successful',
@@ -116,14 +117,13 @@ exports.logout=  (req, res)=> {
         const blacklistData = {
           [id]: [token],
         };
-        redisClient.setex(id, 3600, JSON.stringify(blacklistData));
-        console.log('blacklist : ',blacklistData)
-
+        redisClient.setex(id, 86400, JSON.stringify(blacklistData));
         return res.send({
             status: 'success',
             message: 'Logout successful',
         });
       });
+     
 
 }
 
