@@ -3,8 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const http = require("http").createServer();
-const { Server } = require("socket.io");
-const io = new Server(http);
+
 
 
 
@@ -62,15 +61,6 @@ function initial() {
 }
 const router = require("./Routers/router")
 app.use('/',router)
-
-
-////////////////////////////////
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-});
-
-
 
 
 
