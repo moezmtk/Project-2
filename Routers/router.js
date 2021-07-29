@@ -55,6 +55,22 @@ router.post('/deleteElement/:index',[authJwt.verifyToken, authJwt.isAdmin,authJw
 
 
 
+////////////////////////////////////////////
+
+const messages = require ('../Controllers/chatApp/ajout.message')
+const twouserchat = require ('../Controllers/chatApp/find.2User.chat')
+const findoneusermessages = require ('../Controllers/chatApp/find.one.user.messeges')
+const updatedeletemessage  = require ('../Controllers/chatApp/update.delete.message')
+
+
+router.post ('/message',messages.ajoutMessage)
+router.get('/find2UserChat/:userId_send/:userId_receiver',twouserchat.find2UserChat)
+router.get('/findOneUserMesages/:userId',findoneusermessages.findOneUserMesseges)
+router.put('/updateMessage/:id',updatedeletemessage.update)
+router.delete('/deleteMessage/:id',updatedeletemessage.delete)
+
+
+
 
 
 module.exports = router
