@@ -2,6 +2,9 @@
 const db = require('../../models/index');
 const messages = db.messages;
 
+
+
+
 exports.ajoutMessage = async(req, res) => {  
     console.log('ajout message  "BODY"  ',req.body)  
     messages.create({
