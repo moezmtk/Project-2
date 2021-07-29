@@ -45,12 +45,11 @@ db.messages.belongsToMany(db.user, {
   through: "user_messages",
   foreignKey: "messagesId",
   otherKey: "userId_send",
-  otherKey: "userId_receiver"
+  
 });
 db.user.belongsToMany(db.messages, {
   through: "user_messages",
   foreignKey: "userId_send",
-  foreignKey: "userId_receiver",
   otherKey: "messagesId",
 });
 
