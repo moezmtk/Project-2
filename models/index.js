@@ -38,20 +38,7 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId"
 });
-/////////////////////////////////////////
 
-
-db.messages.belongsToMany(db.user, {
-  through: "user_messages",
-  foreignKey: "messagesId",
-  otherKey: "userId_send",
-  
-});
-db.user.belongsToMany(db.messages, {
-  through: "user_messages",
-  foreignKey: "userId_send",
-  otherKey: "messagesId",
-});
 
 
 db.ROLES = ["user", "admin", "moderator"];
