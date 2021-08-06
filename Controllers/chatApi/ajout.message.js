@@ -1,7 +1,7 @@
 
 const db = require('../../models/index');
 const messages = db.messages;
-
+const io = require('./index')
 
 
 
@@ -14,6 +14,19 @@ exports.ajoutMessage = async(req, res) => {
     })
     .then(data => {
         res.send(data)
+
+
+
+
+        io.on('connection', (socket) => {
+          socket.on('chat message', ({userId_send , message}) => {
+            io.emit('chat message', {userId_send , message});
+          });
+        });
+
+
+
+
       })
       .catch(err => {
         res.status(500).send({
