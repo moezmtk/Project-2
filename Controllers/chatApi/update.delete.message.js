@@ -44,6 +44,20 @@ exports.update = (req, res) => {
         res.json({
             "message": "message Deleted"
         });
+
+
+        
+
+        io.on('delete-message', (socket) => {
+          socket.on('delete-message', ({userId_send , message}) => {
+            io.emit('delete-message', {userId_send , message});
+          });
+        });
+
+
+
+
+
     } catch (err) {
         console.log(err);
     }
