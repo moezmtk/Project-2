@@ -1,6 +1,6 @@
 
-const http = require("http").createServer();
-const server   = require("http").Server(app);
+
+const server   = require("http");
 const io       = require("socket.io")(server);
 io.adapter(redisAdapter({ host : process.env.REDIS_HOST,port : 6379}))
 
