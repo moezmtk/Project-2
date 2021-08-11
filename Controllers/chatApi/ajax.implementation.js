@@ -28,14 +28,18 @@ $(document).ready(function () {
     $('#addmessage').on('click',function(){
         //var form = document.getElementById( "myform" );
        // var formjson = toJSONString( form );
+       var message = $('#message').val();
+       var userId_send = $('#name').val();
+       var userId_receiver = $('#namerecevier').val();
       $.ajax({
           url: "https://127.0.0.1/message",
           type: "POST",
           data: {
-            userId_send: "8",
-              userId_receiver: "10" ,
-              message: "message !!"
+            userId_send:userId_send,
+            userId_receiver:userId_receiver,
+            message: message
               
+            
           },
           success: function(response){
               console.log(response);

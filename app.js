@@ -63,7 +63,12 @@ function initial() {
 const router = require("./Routers/router")
 app.use('/',router)
 
+app.get("/",(req,res)=>{
+  res.sendFile(__dirname + '/controllers/chatApi/index.html')
+ 
 
+
+})
 
 
 
