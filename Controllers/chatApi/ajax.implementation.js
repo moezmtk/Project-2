@@ -5,7 +5,7 @@
 
 $(document).ready(function () {
 
-    var container = $('.container ul');
+    var container = $('#list-messages').val();
     $.ajax({
       type: 'GET',
       url: 'https://127.0.0.1/findOneUserMesages/:userId',
